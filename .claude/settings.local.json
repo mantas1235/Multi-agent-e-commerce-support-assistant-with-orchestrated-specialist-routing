@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(venv/Scripts/python.exe -c ' *)",
+      "Bash(PYTHONUTF8=1 venv/Scripts/python.exe -m py_compile backend/agents/product_agent.py backend/agents/order_agent.py backend/agents/delivery_agent.py backend/agents/returns_agent.py backend/agents/orchestrator.py backend/main.py)"
+    ]
+  }
+}
