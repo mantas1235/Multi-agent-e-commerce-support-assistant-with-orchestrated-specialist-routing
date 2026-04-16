@@ -6,8 +6,8 @@ langchain-community
 langchain-core
 langchain-text-splitters
 langchainhub
-langchain-classic
 pypdf
+bcrypt
 supabase>=2.28
 httpx>=0.26
 websockets>=14

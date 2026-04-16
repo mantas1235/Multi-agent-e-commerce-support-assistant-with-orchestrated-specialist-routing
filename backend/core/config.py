@@ -6,7 +6,7 @@ load_dotenv(override=True)
 
 class Settings:
     PROJECT_NAME: str = "LITIT AI E-commerce Assistant"
-    
+    JWT_SECRET: str = os.getenv("JWT_SECRET")
     # Supabase duomenys iš tavo .env
     SUPABASE_URL: str = os.getenv("SUPABASE_URL")
     SUPABASE_KEY: str = os.getenv("SUPABASE_SERVICE_KEY")

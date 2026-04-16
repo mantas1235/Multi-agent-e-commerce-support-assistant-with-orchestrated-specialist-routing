@@ -7,6 +7,7 @@ const INITIAL_MESSAGE = {
   content:
     'Sveiki! Aš esu LITIT AI asistentė. Galiu padėti su klausimais apie produktus, pristatymą, grąžinimus ir jūsų paskyrą. Kuo galiu padėti?',
   timestamp: new Date(),
+  isGreeting: true,
 }
 
 export function useChat() {
@@ -26,6 +27,11 @@ export function useChat() {
   const sendMessage = async (text) => {
     if (!text.trim() || isLoading) return
 
+    // Build history from conversation so far (exclude the greeting)
+    const historyToSend = messages
+      .filter((m) => !m.isGreeting)
+      .map((m) => ({ role: m.role, content: m.content }))
+
     const userMessage = {
       id: Date.now(),
       role: 'user',
@@ -38,7 +44,7 @@ export function useChat() {
     setError(null)
 
     try {
-      const answer = await sendChatMessage(text.trim())
+      const answer = await sendChatMessage(text.trim(), historyToSend)
       setMessages((prev) => [
         ...prev,
         {
