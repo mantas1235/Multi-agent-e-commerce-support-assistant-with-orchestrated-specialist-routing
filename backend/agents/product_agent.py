@@ -1,5 +1,7 @@
 from backend.agents.base_agent import run_specialized_agent
 
 
-def get_product_info(query, history=None):
-    return run_specialized_agent(query, "product_agent", history)
+# Turi priimti user_email!
+def get_product_info(query: str, history: list, user_email: str):
+    # Ir perduoti jį į run_specialized_agent!
+    return run_specialized_agent(query, "product_agent", user_email, history)

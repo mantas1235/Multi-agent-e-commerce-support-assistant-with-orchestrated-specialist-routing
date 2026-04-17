@@ -9,7 +9,7 @@ from backend.agents.order_agent import get_order_info
 llm = ChatOpenAI(model_name=settings.MAIN_LLM_MODEL, temperature=0)
 
 
-def handle_customer_query(user_query, history=None):
+def handle_customer_query(query: str, history: list, user_email: str):
     if history is None:
         history = []
 
@@ -34,18 +34,18 @@ def handle_customer_query(user_query, history=None):
             messages.append(HumanMessage(content=content))
         else:
             messages.append(AIMessage(content=content))
-    messages.append(HumanMessage(content=user_query))
+    messages.append(HumanMessage(content=query))
 
     decision = llm.invoke(messages).content.strip().upper()
     print(f"--- [Orchestrator] Kategorija: {decision} ---")
 
     if "PRODUCT" in decision:
-        return get_product_info(user_query, history)
+        return get_product_info(query, history, user_email)
     elif "DELIVERY" in decision:
-        return get_delivery_info(user_query, history)
+        return get_delivery_info(query, history, user_email)
     elif "RETURNS" in decision:
-        return get_returns_info(user_query, history)
+        return get_returns_info(query, history, user_email)
     elif "ORDER" in decision:
-        return get_order_info(user_query, history)
+        return get_order_info(query, history, user_email)
     else:
         return "Atsiprašau, negaliu suprasti temos. Galite patikslinti?"

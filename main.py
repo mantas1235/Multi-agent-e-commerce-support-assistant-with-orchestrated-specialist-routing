@@ -73,11 +73,9 @@ def login(data: AuthRequest):
 
 @app.post("/chat")
 def chat(query: Query, current_user: str = Depends(get_current_user)):
-    try:
-        response = handle_customer_query(query.text, query.history)
-        return {"answer": response}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    # Perduodame current_user (kuris turėtų būti tavo el. paštas)
+    response = handle_customer_query(query.text, query.history, current_user)
+    return {"response": response}
 
 
 if __name__ == "__main__":

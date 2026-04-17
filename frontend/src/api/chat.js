@@ -12,5 +12,5 @@ export async function sendChatMessage(text, history = []) {
   })
   if (!res.ok) throw new Error(`Serverio klaida: ${res.status}`)
   const data = await res.json()
-  return data.answer
+  return data.response
 }
