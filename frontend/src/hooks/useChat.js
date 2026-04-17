@@ -5,7 +5,7 @@ const INITIAL_MESSAGE = {
   id: 1,
   role: 'assistant',
   content:
-    'Sveiki! Aš esu LITIT AI asistentė. Galiu padėti su klausimais apie produktus, pristatymą, grąžinimus ir jūsų paskyrą. Kuo galiu padėti?',
+    'Sveiki! Aš esu ABIBAS AI asistentė. Galiu padėti su klausimais apie produktus, pristatymą, grąžinimus ir jūsų paskyrą. Kuo galiu padėti?',
   timestamp: new Date(),
   isGreeting: true,
 }

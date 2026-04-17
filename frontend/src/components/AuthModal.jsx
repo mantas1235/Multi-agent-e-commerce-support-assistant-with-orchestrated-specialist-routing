@@ -55,7 +55,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
           <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-purple-700 rounded-xl flex items-center justify-center shadow-sm">
             <span className="text-white font-bold text-sm">LT</span>
           </div>
-          <span className="text-xl font-bold text-gray-900">LITIT</span>
+          <span className="text-xl font-bold text-gray-900">ABIBAS</span>
         </div>
 
         <h2 className="text-2xl font-bold text-gray-900 mb-1">

@@ -21,7 +21,7 @@ export default function Header({ onChatClick }) {
             <div className="w-9 h-9 bg-gradient-to-br from-blue-600 to-purple-700 rounded-xl flex items-center justify-center shadow-sm">
               <span className="text-white font-bold text-sm tracking-wide">LT</span>
             </div>
-            <span className="text-xl font-bold text-gray-900">LITIT</span>
+            <span className="text-xl font-bold text-gray-900">ABIBAS</span>
           </a>
 
           {/* Desktop nav */}

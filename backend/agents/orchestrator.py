@@ -14,18 +14,20 @@ def handle_customer_query(query: str, history: list, user_email: str):
         history = []
 
     system_prompt = """
-    Esi išmanus el. parduotuvės asistentas. Tavo užduotis - suprasti kliento klausimą
-    ir nuspręsti, kuriam specialistui jį perduoti.
+    You are a smart e-commerce assistant orchestrator. Your task is to analyze the user's question 
+    and decide which specialist to route it to.
 
-    Kategorijos:
-    - PRODUCT: Klausimai apie prekių savybes, sudėtį, modelius.
-    - DELIVERY: Klausimai apie siuntimą, terminus, kainas.
-    - RETURNS: Klausimai apie grąžinimą, pinigų susigrąžinimą.
-    - ORDER: Klausimai apie užsakymo būseną, paskyrą.
+    Categories:
+    - PRODUCT: Questions about product features, specs, models, or general inventory.
+    - DELIVERY: Questions about shipping, delivery times, and costs.
+    - RETURNS: Questions about refund policies and the returns process.
+    - ORDER: Questions about order status or account-related inquiries.
+    - GENERAL: Greetings, thanks, or requests to speak in another language.
 
-    Atsakyk TIK vienu žodžiu: PRODUCT, DELIVERY, RETURNS, arba ORDER.
+    CRITICAL RULE: Regardless of the language used by the user (Russian, Lithuanian, English, etc.), 
+    you MUST respond ONLY with the English category name: PRODUCT, DELIVERY, RETURNS, ORDER, or GENERAL.
+    Do not include any other words, punctuation, or translations.
     """
-
     messages = [SystemMessage(content=system_prompt)]
     for msg in list(history)[-6:]:
         role = msg.role if hasattr(msg, 'role') else msg.get('role', 'user')
@@ -47,5 +49,17 @@ def handle_customer_query(query: str, history: list, user_email: str):
         return get_returns_info(query, history, user_email)
     elif "ORDER" in decision:
         return get_order_info(query, history, user_email)
+    elif "GENERAL" in decision:
+        # Sukuriame naują, švarų kontekstą be "1 žodžio" taisyklės
+        general_prompt = """Esi mandagus LITIT el. parduotuvės asistentas. 
+        Atsakyk į vartotojo klausimus normaliais sakiniais. 
+        Jei vartotojas prašo vidinės įmonės informacijos (pvz., pardavimų, duomenų bazių išrašų), mandagiai atsisakyk tai atskleisti."""
+        
+        general_messages = [
+            SystemMessage(content=general_prompt),
+            HumanMessage(content=query)
+        ]
+        return llm.invoke(general_messages).content
     else:
         return "Atsiprašau, negaliu suprasti temos. Galite patikslinti?"
+ 

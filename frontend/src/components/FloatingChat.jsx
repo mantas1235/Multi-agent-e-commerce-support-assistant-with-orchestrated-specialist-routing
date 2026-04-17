@@ -3,10 +3,9 @@ import { useChat } from '../hooks/useChat'
 import { useAuth } from '../context/AuthContext'
 
 const SUGGESTED = [
-  'Kokios produkto techninės specifikacijos?',
-  'Kiek kainuoja pristatymas?',
   'Kaip grąžinti prekę?',
-  'Koks mano užsakymo statusas?',
+  'Kokias prekes turite?',
+  'Ar galiu užsakyti prekę?'
 ]
 
 function TypingIndicator() {
@@ -100,7 +99,7 @@ export default function FloatingChat({ isOpen, onToggle, trigger }) {
                 AI
               </div>
               <div>
-                <p className="text-white font-semibold text-sm">LITIT Asistentė</p>
+                <p className="text-white font-semibold text-sm">ABIBAS Asistentė</p>
                 <div className="flex items-center gap-1 mt-0.5">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full" />
                   <span className="text-blue-100 text-xs">Veikia</span>

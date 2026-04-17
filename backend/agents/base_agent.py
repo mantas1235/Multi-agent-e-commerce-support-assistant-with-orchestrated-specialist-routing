@@ -6,6 +6,7 @@ from backend.core.config import settings
 from backend.core.supabase_client import supabase
 from typing import List
 from langchain_core.tools import tool
+from langchain_core.messages import ToolMessage
 
 @tool
 def calculate_discount(price: float, discount_percent: float) -> str:
@@ -30,6 +31,7 @@ class SupabaseRetriever(BaseRetriever):
     k: int = 3
 
     def _get_relevant_documents(self, query: str, **kwargs) -> List[Document]:
+        search_query = llm.invoke(f"Translate this search query to Lithuanian for database lookup: {query}").content
         query_embedding = embeddings.embed_query(query)
         response = supabase.rpc("match_documents", {
             "query_embedding": query_embedding,
@@ -58,10 +60,7 @@ def run_specialized_agent(query: str, agent_name: str, user_email: str, history=
     messages = [
         SystemMessage(content=f"""You are a professional e-commerce assistant.
         
-        STRICT RULES:
-        1. Answer ONLY using the provided context. If it's not there, say you don't know.
-        2. LANGUAGE PERSISTENCE: Check the chat history. If the user previously asked to speak in a specific language (e.g., English), you MUST respond in THAT language, regardless of the language of the current question. 
-        3. Do NOT ever say "I can only speak Lithuanian". You are multilingual.
+       
 
         Context:
         {context}""")
@@ -114,7 +113,25 @@ def run_specialized_agent(query: str, agent_name: str, user_email: str, history=
         else:
             galutinis_tekstas = "Atsiprašau, sistemos klaida bandant naudoti įrankį."
 
-        return galutinis_tekstas
+        messages.append(result) 
+        
+        # Pridedame įrankio rezultatą specialiu ToolMessage formatu
+        messages.append(ToolMessage(
+            tool_call_id=tool_call['id'], 
+            content=galutinis_tekstas
+        ))
+        
+        # Duodame LLM'ui paskutinį žodį (jis pritaikys kalbą ir suformuluos atsakymą)
+        final_result = llm_with_tools.invoke(messages)
+        
+        return str(final_result.content) if final_result.content else str(llm.invoke(messages).content)
 
-    # 3. Jei įrankio nereikėjo, tiesiog grąžiname tekstą
+    # 3. JEI ĮRANKIO AI NEPASIRINKO (Tiesioginis atsakymas)
+    if not result.content:
+        # Jei content tuščias (dažna bind_tools problema su įvairiom kalbom), 
+        # kviečiame LLM švariam atsakymui be įrankių trikdžių
+        print("DEBUG: Content tuščias, generuojame fallback atsakymą...")
+        fallback_result = llm.invoke(messages)
+        return str(fallback_result.content)
+
     return str(result.content)

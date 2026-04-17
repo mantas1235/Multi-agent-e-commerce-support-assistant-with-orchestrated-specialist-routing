@@ -7,21 +7,21 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('litit_token')
-    const email = localStorage.getItem('litit_email')
+    const token = sessionStorage.getItem('litit_token')
+    const email = sessionStorage.getItem('litit_email')
     if (token && email) setUser({ token, email })
     setLoading(false)
   }, [])
 
   const login = (token, email) => {
-    localStorage.setItem('litit_token', token)
-    localStorage.setItem('litit_email', email)
+    sessionStorage.setItem('litit_token', token)
+    sessionStorage.setItem('litit_email', email)
     setUser({ token, email })
   }
 
   const logout = () => {
-    localStorage.removeItem('litit_token')
-    localStorage.removeItem('litit_email')
+    sessionStorage.removeItem('litit_token')
+    sessionStorage.removeItem('litit_email')
     setUser(null)
   }
 

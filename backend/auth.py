@@ -3,7 +3,7 @@ import jwt
 import bcrypt
 import os
 
-SECRET_KEY = os.getenv("JWT_SECRET", "litit-dev-secret-change-in-production")
+SECRET_KEY = os.getenv("JWT_SECRET", "ABIBAS-dev-secret-change-in-production")
 ALGORITHM = "HS256"
 
 

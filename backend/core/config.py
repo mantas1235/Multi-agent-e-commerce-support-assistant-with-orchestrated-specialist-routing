@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv(override=True)
 
 class Settings:
-    PROJECT_NAME: str = "LITIT AI E-commerce Assistant"
+    PROJECT_NAME: str = "ABIBAS AI E-commerce Assistant"
     JWT_SECRET: str = os.getenv("JWT_SECRET")
     # Supabase duomenys iš tavo .env
     SUPABASE_URL: str = os.getenv("SUPABASE_URL")

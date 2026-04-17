@@ -1,7 +1,7 @@
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000'
 
 export async function sendChatMessage(text, history = []) {
-  const token = localStorage.getItem('litit_token')
+  const token = sessionStorage.getItem('litit_token')
   const res = await fetch(`${API_URL}/chat`, {
     method: 'POST',
     headers: {

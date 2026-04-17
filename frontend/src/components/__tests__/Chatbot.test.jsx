@@ -15,7 +15,7 @@ describe('Chatbot component', () => {
   it('renders the initial greeting message', () => {
     render(<Chatbot />)
     expect(screen.getByText(/Sveiki/)).toBeInTheDocument()
-    expect(screen.getByText(/LITIT AI asistentė/)).toBeInTheDocument()
+    expect(screen.getByText(/ABIBAS AI asistentė/)).toBeInTheDocument()
   })
 
   it('renders all four suggested question chips', () => {

@@ -28,7 +28,7 @@ export default function Hero({ onChatClick }) {
           </div>
 
           <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6 leading-tight">
-            LITIT Dirbtinio
+            ABIBAS Dirbtinio
             <span className="block bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               Intelekto Asistentė
             </span>

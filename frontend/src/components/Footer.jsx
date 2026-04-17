@@ -27,7 +27,7 @@ export default function Footer() {
               <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-700 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-xs">LT</span>
               </div>
-              <span className="text-white font-bold text-lg">LITIT</span>
+              <span className="text-white font-bold text-lg">ABIBAS</span>
             </div>
             <p className="text-sm leading-relaxed max-w-xs">
               Pažangus AI sprendimas klientų aptarnavimui. Atsakome greitai, tiksliai ir visą parą, remdamiesi oficialiais dokumentais.
@@ -69,7 +69,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-3 text-sm">
-          <p>© {year} LITIT. Visos teisės saugomos.</p>
+          <p>© {year} ABIBAS. Visos teisės saugomos.</p>
           <p className="text-slate-500">Valdoma dirbtinio intelekto technologijos</p>
         </div>
       </div>
